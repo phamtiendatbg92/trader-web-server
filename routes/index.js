@@ -116,6 +116,9 @@ router.post('/upload-new-post', async function (req, res, next) {
     res.sendStatus(500);
   }
 });
+router.get('/', function (req, res, next) {
+  res.send('hello heroku !!!')
+});
 
 router.get('/get-list-tutorials', function (req, res, next) {
   const filter = {};
