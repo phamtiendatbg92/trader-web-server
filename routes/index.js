@@ -36,7 +36,7 @@ function handleBase64Image(content) {
       // Create new buffer contain data
       let imageBuffer = Buffer.from(imgData, 'base64');
       let fileName = Date.now() + "." + mimeType;
-      let fileNameWithKey = Constants.SERVER_PUBLIC_KEY + Date.now() + "." + mimeType;
+      let fileNameWithKey = Constants.SERVER_PUBLIC_KEY + fileName;
       // replace data to url to save to database
       content = content.replace(match[i], fileNameWithKey);
       try {
