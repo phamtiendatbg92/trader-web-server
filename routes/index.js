@@ -35,7 +35,8 @@ function handleBase64Image(content) {
       const imgData = match[i].substring(match[i].indexOf("base64") + 7, match[i].length);
       // Create new buffer contain data
       let imageBuffer = Buffer.from(imgData, 'base64');
-      let fileName = Constants.SERVER_PUBLIC_KEY + Date.now() + "." + mimeType;
+      let fileName = Date.now() + "." + mimeType;
+      let fileNameWithKey = Constants.SERVER_PUBLIC_KEY + Date.now() + "." + mimeType;
       // replace data to url to save to database
       content = content.replace(match[i], fileName);
       try {
@@ -83,14 +84,11 @@ function handleHashTag(reqTags){
 
 async function validateUrl(title){
   let url = fromTitleToUrl(title);
-  console.log(" 1==== " + url);
   const doc =  await TutorialModel.find({url : url}).exec();
-  console.log(" 2==== " + doc);
   if(doc != "")
   {
     url = "";
   }
-  console.log(" 3==== " + url);
   return url;
 }
 /* Upload new post */
@@ -99,7 +97,6 @@ router.post('/upload-new-post', async function (req, res, next) {
     const url = await validateUrl(req.body.title);
     if(url != "")
     {
-      console.log("======here======" + url);
       let content = req.body.content;
       content = handleBase64Image(content);
       CreateNewPost(req.body.title, content, req.body.tags, url);
@@ -112,7 +109,7 @@ router.post('/upload-new-post', async function (req, res, next) {
     }
   }
   catch (e) {
-    console.log("=========222========" + e);
+    console.log("=========upload-new-post========" + e);
     res.sendStatus(500);
   }
 });

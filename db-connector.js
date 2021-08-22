@@ -27,17 +27,17 @@ const hashTagSchema = new Schema({
 });
 
 const HashTagModel = mongoose.model('HashTags', hashTagSchema);
-const uri = process.env.MONGODB_URI;
-
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/trader";
+//$env:mongodb+srv://trader-admin:Q1w2e3r4@cluster0.nwh2i.mongodb.net/trader-web-mongodb?retryWrites=true&w=majority
 //mongoose.connect('mongodb://localhost:27017/trader', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    HashTagModel.findOne({}, function (err, doc) {
-        console.log(doc);
-      });
+    // HashTagModel.findOne({}, function (err, doc) {
+    //     console.log(doc);
+    //   });
 });
 
 
