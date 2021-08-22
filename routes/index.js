@@ -38,7 +38,7 @@ function handleBase64Image(content) {
       let fileName = Date.now() + "." + mimeType;
       let fileNameWithKey = Constants.SERVER_PUBLIC_KEY + Date.now() + "." + mimeType;
       // replace data to url to save to database
-      content = content.replace(match[i], fileName);
+      content = content.replace(match[i], fileNameWithKey);
       try {
         fs.writeFileSync("./public/images/" + fileName, imageBuffer, 'utf8');
       } catch (e) {
