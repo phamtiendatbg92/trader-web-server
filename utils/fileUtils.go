@@ -1,11 +1,11 @@
-package main
+package utils
 
 import (
 	"encoding/base64"
 	"os"
 )
 
-func writeToFile(filePath string, based64Img string) {
+func WriteToFile(filePath string, based64Img string) {
 	dec, err := base64.StdEncoding.DecodeString(based64Img)
 	if err != nil {
 		panic(err)
