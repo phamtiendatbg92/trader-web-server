@@ -10,12 +10,13 @@ type ListTutorialResponse struct {
 }
 
 type TutorialJson struct {
-	Id       uint     `json:"id"`
-	Title    string   `json:"title"`
-	Content  string   `json:"content"`
-	Tags     []string `json:"tags"`
-	Url      string   `json:"url"`
-	AuthorID uint     `json:"authorId"`
+	Id          uint     `json:"id"`
+	Title       string   `json:"title"`
+	Content     string   `json:"content"`
+	Tags        []string `json:"tags"`
+	Url         string   `json:"url"`
+	AuthorID    uint     `json:"authorId"`
+	Description string   `json:"description"`
 }
 type Comment struct {
 	UserId  uint   `json:"userId"`

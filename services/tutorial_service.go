@@ -64,12 +64,13 @@ func (r *tutorialServiceImpl) CreateNewPost(tutJson dtos.TutorialJson) bool {
 	if newUrl != "" {
 		tutJson.Content = handleBase64Image(tutJson.Content)
 		var temp = models.Tutorial{
-			ID:       tutJson.Id,
-			Title:    tutJson.Title,
-			Content:  tutJson.Content,
-			Url:      newUrl,
-			Tags:     strings.Join(tutJson.Tags, repositories.SPLITKEY),
-			AuthorID: tutJson.AuthorID,
+			ID:          tutJson.Id,
+			Title:       tutJson.Title,
+			Content:     tutJson.Content,
+			Url:         newUrl,
+			Tags:        strings.Join(tutJson.Tags, repositories.SPLITKEY),
+			AuthorID:    tutJson.AuthorID,
+			Description: tutJson.Description,
 		}
 		err = r.tutRepo.CreateNewPost(temp)
 		if err != nil {
@@ -116,11 +117,12 @@ func (r *tutorialServiceImpl) GetAllPost() []dtos.TutorialJson {
 	var result []dtos.TutorialJson
 	for _, value := range tutArray {
 		var temp = dtos.TutorialJson{
-			Id:       value.ID,
-			Title:    value.Title,
-			Url:      value.Url,
-			Content:  value.Content,
-			AuthorID: value.AuthorID,
+			Id:          value.ID,
+			Title:       value.Title,
+			Url:         value.Url,
+			Content:     value.Content,
+			AuthorID:    value.AuthorID,
+			Description: value.Description,
 		}
 		result = append(result, temp)
 	}
@@ -138,12 +140,13 @@ func (r *tutorialServiceImpl) GetDetailTutorial(url string) dtos.TutorialRespons
 	}
 
 	var jsonResult = dtos.TutorialJson{
-		Id:       result.ID,
-		Title:    result.Title,
-		Content:  result.Content,
-		Tags:     strings.Split(result.Tags, repositories.SPLITKEY),
-		Url:      result.Url,
-		AuthorID: result.AuthorID,
+		Id:          result.ID,
+		Title:       result.Title,
+		Content:     result.Content,
+		Tags:        strings.Split(result.Tags, repositories.SPLITKEY),
+		Url:         result.Url,
+		AuthorID:    result.AuthorID,
+		Description: result.Description,
 	}
 
 	res.Data = jsonResult
@@ -154,12 +157,13 @@ func (r *tutorialServiceImpl) GetDetailTutorial(url string) dtos.TutorialRespons
 func (r *tutorialServiceImpl) UpdateTutorial(tut dtos.TutorialJson) dtos.Meta {
 	var meta dtos.Meta
 	err := r.tutRepo.UpdateTutorial(models.Tutorial{
-		ID:       tut.Id,
-		Title:    tut.Title,
-		Content:  tut.Content,
-		Url:      tut.Url,
-		Tags:     strings.Join(tut.Tags, repositories.SPLITKEY),
-		AuthorID: tut.AuthorID,
+		ID:          tut.Id,
+		Title:       tut.Title,
+		Content:     tut.Content,
+		Url:         tut.Url,
+		Tags:        strings.Join(tut.Tags, repositories.SPLITKEY),
+		AuthorID:    tut.AuthorID,
+		Description: tut.Description,
 	})
 	if err == nil {
 		meta.Code = http.StatusOK
